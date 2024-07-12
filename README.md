@@ -1,5 +1,5 @@
 # pitch_detector
-Program to detect any pitches from the [chromatic scale](https://en.wikipedia.org/wiki/Chromatic_scale#:~:text=9%20External%20links-,Definition,12%20of%20the%20available%20pitches.) in a piece of recorded audio.
+Program to detect any pitches from the [chromatic scale](https://en.wikipedia.org/wiki/Chromatic_scale#:~:text=9%20External%20links-,Definition,12%20of%20the%20available%20pitches.) in a piece of recorded audio. See [my blog](https://reneelearnsthings.blogspot.com/) for posts on how I went about researching this.
 
 ## Background
 ### The Chromatic Scale
