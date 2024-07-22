@@ -1,11 +1,10 @@
 """Module containing the data collection and processing functionality."""
 
-from enum import IntEnum
 import scipy
 import numpy as np
 import sounddevice as sd
 
-class MusicalNotes(IntEnum):
+class MusicalNotes():
     """
     Musical notes in Hz.
 
