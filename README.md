@@ -24,7 +24,11 @@ Create your environment with these steps:
 `pip install -r requirements.txt`
 
 For Windows (which is what I'm using):
+
 `pitch_detector_venv\Scripts\activate`
 
 For Linux:
+
 `source pitch_detector_venv/bin/activate`
+### Running main
+Run `main.py` to record some audio and extract the prominent frequencies.
