@@ -25,7 +25,7 @@ class MusicalNotes():
     A_SHARP = [29.14, 58.27, 116.54, 233.08, 466.16, 932.33, 1864.66, 3729.31, 7458.62]
     B = [30.87, 61.74, 123.47, 246.94, 493.88, 932.33, 1975.53, 3951.07, 7902.13]
 
-def record(duration, sr=44100):
+def record(duration, sr=44100, device=None):
     """Record `duration` seconds of audio data from the default microphone.
     
     Parameters
@@ -34,16 +34,24 @@ def record(duration, sr=44100):
         Seconds of data to record.
     sr : int, default=44100
         Sample rate per second.
+    device : int, default=None
+        Device index.
     
     Returns
     -------
     ndarray
         1-d ndarray of length `duration`*`sr`.
     """
-    print("recording!")
+    if device is not None:
+        sd.default.device = device  # TODO: add error handling for non-existant device request
+    input_device_index, _ = sd.default.device
+    devices = sd.query_devices()
+    print(f"Recording for {duration} seconds on '{devices[input_device_index]['name']}'!")
+
     data = sd.rec(duration*sr, samplerate=sr, channels=1)
     sd.wait()
-    print("done!")
+
+    print("Done!")
     return data.flatten()
 
 def extract_pitch(data, sr=44100):
