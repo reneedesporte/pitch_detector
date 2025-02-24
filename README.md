@@ -12,23 +12,18 @@ Program to detect any pitches from the [chromatic scale](https://en.wikipedia.or
 >
 > -- <cite>[ScienceDirect](https://www.google.com/search?q=nyquist+theorem&rlz=1C1ONGR_enUS942US942&oq=nyquist+t&gs_lcrp=EgZjaHJvbWUqCggAEAAYsQMYgAQyCggAEAAYsQMYgAQyBggBEEUYOTIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABKgCALACAA&sourceid=chrome&ie=UTF-8)</cite>
 
-[Most mics are capable of 44.1 kHz](https://resoundsound.com/sample-rate-bit-depth/), which meets the Nyquist requirement for [any frequency hear by the human ear](https://en.wikipedia.org/wiki/Hearing_range).
+[Most mics are capable of 44.1 kHz](https://resoundsound.com/sample-rate-bit-depth/), which meets the Nyquist requirement for [any frequency heard by the human ear](https://en.wikipedia.org/wiki/Hearing_range).
 
 ## Approach
 It shouldn't come as a surprise that I've employed the FFT to extract frequencies from the recorded audio signals. I use the library `scipy` to do the hard stuff.
 ### Virtual Environment
-Create your environment with these steps:
+Create, activate, and set up your virtual environment (on a Windows machine) with these steps:
 
 `py -m venv pitch_detector_venv`
 
-`pip install -r requirements.txt`
-
-For Windows (which is what I'm using):
-
 `pitch_detector_venv\Scripts\activate`
 
-For Linux:
+`pip install -r requirements.txt`
 
-`source pitch_detector_venv/bin/activate`
 ### Running main
 Run `main.py` to record some audio and extract the prominent frequencies.
