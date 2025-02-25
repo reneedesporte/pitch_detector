@@ -1,0 +1,10 @@
+[project]
+name = "pitch-detector"
+version = "0.1.0"
+description = "Program to detect musical notes in recorded audio."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "scipy>=1.15.2",
+    "sounddevice>=0.5.1",
+]
