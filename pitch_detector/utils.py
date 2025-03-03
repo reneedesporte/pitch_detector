@@ -55,8 +55,8 @@ def record(duration, sr=44100, device=None):
     return data.flatten()
 
 def extract_pitch(data, sr=44100):
-    """Take `data` and apply an FFT to extract prominent
-     frequencies on the loudest portion.
+    """
+    Extract peaks frequencies from `data`.
     
     Parameters
     -----------
@@ -68,25 +68,23 @@ def extract_pitch(data, sr=44100):
     Returns
     --------
     array
-        The 1-d array of prominent freqencies in `data`,
-         calculated with `scipy.signal.find_peaks`.
+        The peak frequencies of `data`.
     
     See Also
     --------
-    scipy.fft.fft
-    scipy.fft.fftfreq
+    scipy.signal.periodogram
     scipy.signal.find_peaks
     """
     # TODO: assert that `data` is the correct shape.
 
-    # Do FFT
-    N = len(data)
-    T = 1.0 / sr
-    yf = scipy.fft.fft(data, axis=0)
-    yf = 2.0/N * np.abs(yf[0:N//2]).flatten()  # We only care about positive freqs.
-    xf = scipy.fft.fftfreq(N, T)[:N//2]
+    # Calculate periodogram
+    f, Pxx_den = scipy.signal.periodogram(data, sr)
 
-    return xf[scipy.signal.find_peaks(yf, height=7*np.std(yf))[0]]  # TODO: determine better height threshold
+    # Find peaks
+    peaks, _ = scipy.signal.find_peaks(Pxx_den, height=5e-6)
+    peaks = f[peaks]  # Convert indices to frequencies
+
+    return peaks
 
 def frequency_to_note(freq):
     """Convert a frequency `freq` from Hz to a musical note.
