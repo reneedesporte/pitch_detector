@@ -9,3 +9,8 @@ dependencies = [
     "scipy>=1.15.2",
     "sounddevice>=0.5.1",
 ]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
+]
