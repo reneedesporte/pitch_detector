@@ -77,6 +77,7 @@ def extract_pitch(data, sr=44100, threshold=50):
     peaks, etc = scipy.signal.find_peaks(
         Pxx_den,
         height=threshold*np.average(Pxx_den),
+        width=5
     )
     peaks = f[peaks]  # Convert indices to frequencies
     peaks = np.round(peaks, 2)
