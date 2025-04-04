@@ -80,7 +80,14 @@ def extract_pitch(data, sr=44100, threshold=50):
     )
     peaks = f[peaks]  # Convert indices to frequencies
     peaks = np.round(peaks, 2)
-    return [float(x) for _, x in sorted(zip(etc["peak_heights"], peaks), reverse=True)]
+    peaks = np.asarray(
+        list(
+            set(  # Remove duplicates
+                [float(x) for _, x in sorted(zip(etc["peak_heights"], peaks), reverse=True)]
+            )
+        )
+    )
+    return peaks[peaks > MUSICAL_NOTES["C"]]  # Remove frequencies that are below our
 
 def frequency_to_note(freq):
     """Convert a frequency `freq` from Hz to a musical note.
