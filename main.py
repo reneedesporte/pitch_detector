@@ -10,6 +10,8 @@ if __name__ == "__main__":
 
     pitches = extract_pitch(data)
     print(f"There were {len(pitches)} peak pitches found.")
+    if len(pitches) == 0:
+        exit()
 
     notes = []
     octaves = []
