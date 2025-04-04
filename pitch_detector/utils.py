@@ -54,7 +54,7 @@ def record(duration, sr=44100, device=None):
     print("Done!")
     return data.flatten()
 
-def extract_pitch(data, sr=44100):
+def extract_pitch(data, sr=44100, threshold=50):
     """
     Extract peaks frequencies from `data`.
     
@@ -64,27 +64,28 @@ def extract_pitch(data, sr=44100):
         The single-channel audio data.
     sr : int, default=44100
         Sample rate of `data`.
+    threshold : int, default=50
+        Multiplier of average periodogram value, which acts as threshold
+         for the `find_peaks` operation.
     
     Returns
     --------
     array
-        The peak frequencies of `data`.
+        The peak frequencies of `data`, ordered by decreasing strength.
     
     See Also
     --------
     scipy.signal.periodogram
     scipy.signal.find_peaks
     """
-    # TODO: assert that `data` is the correct shape.
-
-    # Calculate periodogram
     f, Pxx_den = scipy.signal.periodogram(data, sr)
-
-    # Find peaks
-    peaks, _ = scipy.signal.find_peaks(Pxx_den, height=5e-6)
+    peaks, etc = scipy.signal.find_peaks(
+        Pxx_den,
+        height=threshold*np.average(Pxx_den),
+    )
     peaks = f[peaks]  # Convert indices to frequencies
-
-    return peaks
+    peaks = np.round(peaks, 2)
+    return [float(x) for _, x in sorted(zip(etc["peak_heights"], peaks), reverse=True)]
 
 def frequency_to_note(freq):
     """Convert a frequency `freq` from Hz to a musical note.
