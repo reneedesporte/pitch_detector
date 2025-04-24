@@ -22,5 +22,5 @@ if __name__ == "__main__":
 
     print(
         f"The most prominent frequency was {pitches[0]} Hz, "
-        f"which is a {notes[0]} note in octave {octaves[0]}."
+        f"which is approximately an {notes[0]} note in octave {octaves[0]}."
     )
