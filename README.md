@@ -5,6 +5,8 @@ Program to detect any pitches from the [chromatic scale](https://en.wikipedia.or
 This project was created and is maintained using [uv](https://docs.astral.sh/uv/), which I highly recommend.
 ## Runtime
 `uv run main.py` will run the program.
+## Testing
+`uv run pytest` should run tests in the `tests/` directory.
 
 ## Addendum
 ### Background
