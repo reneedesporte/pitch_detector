@@ -69,3 +69,16 @@ def test_extract_pitch_440():
     s = signal(1, [FREQUENCY], sample_rate=SAMPLE_RATE)
     pitches = utils.extract_pitch(s, SAMPLE_RATE)
     assert pitches[0] == FREQUENCY
+
+def test_frequency_to_note_440():
+    """
+    Generate a pure sine wave at 440 Hertz, which should be detected
+     by `utils.frequency_to_note` as an A in the 4th octave.
+    """
+    FREQUENCY = 440  # Hz
+    SAMPLE_RATE = 44100  # Hz
+
+    s = signal(1, [FREQUENCY], sample_rate=SAMPLE_RATE)
+    pitches = utils.extract_pitch(s, SAMPLE_RATE)
+    note, octave = utils.frequency_to_note(pitches[0])
+    assert note == "A" and octave == 4
