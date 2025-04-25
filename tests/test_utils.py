@@ -35,8 +35,9 @@ def signal(duration, frequencies, magnitudes=None, sample_rate=44100):
 
     # Normalize to [-1, 1]
     y -= y.min()
-    y /= 2 * y.max()
-    y -= 1
+    y /= y.max()
+    y -= 0.5
+    y *= 2
 
     return y
 
