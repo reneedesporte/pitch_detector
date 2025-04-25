@@ -62,7 +62,7 @@ def noisify(signal, snr=10):
 def test_extract_pitch_440():
     """
     Generate a pure sine wave at 440 Hertz, which should be detected
-     by `utils.extract_pitch` as an A in the 4th octave.
+     by `utils.extract_pitch` as the most prominent frequency.
     """
     FREQUENCY = 440  # Hz
     SAMPLE_RATE = 44100  # Hz
