@@ -109,7 +109,7 @@ def frequency_to_note(freq):
     octave = round(sum(log_val)/len(log_val))
     log_val = list(
         np.abs(
-            np.asarray(log_val) - round(sum(log_val)/len(log_val))
+            np.asarray(log_val) - octave
         )
     )
     note = list(MUSICAL_NOTES.keys())[log_val.index(min(log_val))]
