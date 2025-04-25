@@ -76,8 +76,7 @@ def extract_pitch(data, sr=44100, threshold=50):
     f, Pxx_den = scipy.signal.periodogram(data, sr)
     peaks, etc = scipy.signal.find_peaks(
         Pxx_den,
-        height=threshold*np.average(Pxx_den),
-        width=5
+        height=threshold*np.average(Pxx_den)
     )
     peaks = f[peaks]  # Convert indices to frequencies
     peaks = np.round(peaks, 2)
