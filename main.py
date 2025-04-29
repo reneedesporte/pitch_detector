@@ -9,8 +9,8 @@ if __name__ == "__main__":
     data = record(DURATION, SAMPLE_RATE)
 
     pitches = extract_pitch(data)
-    print(f"There were {len(pitches)} peak pitches found.")
     if len(pitches) == 0:
+        print(f"There were {len(pitches)} peak pitches found.")
         exit()
 
     notes = []
