@@ -112,6 +112,6 @@ def frequency_to_note(freq):
     # Find octave
     freq = math.log2(freq)
     octave = round(abs(freq - MIDDLE))
-    scores = [octave - abs(freq - f) for f in MUSICAL_NOTES.values()]
+    scores = [abs(octave - freq - f) for f in MUSICAL_NOTES.values()]
     note = list(MUSICAL_NOTES.keys())[scores.index(min(scores))]
     return note, octave
