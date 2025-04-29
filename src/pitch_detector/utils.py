@@ -6,18 +6,23 @@ import numpy as np
 import sounddevice as sd
 
 MUSICAL_NOTES = {}
-MUSICAL_NOTES["C"] = 16.35
-MUSICAL_NOTES["C#"] = 17.32
-MUSICAL_NOTES["D"] = 18.35
-MUSICAL_NOTES["D#"] = 19.45
-MUSICAL_NOTES["E"] = 20.60
-MUSICAL_NOTES["F"] = 21.83
-MUSICAL_NOTES["F#"] = 23.12
-MUSICAL_NOTES["G"] = 24.50
-MUSICAL_NOTES["G#"] = 25.96
-MUSICAL_NOTES["A"] = 27.50
-MUSICAL_NOTES["A#"] = 29.14
-MUSICAL_NOTES["B"] = 30.87
+MUSICAL_NOTES["C"] = math.log2(16.35)
+MUSICAL_NOTES["C#"] = math.log2(17.32)
+MUSICAL_NOTES["D"] = math.log2(18.35)
+MUSICAL_NOTES["D#"] = math.log2(19.45)
+MUSICAL_NOTES["E"] = math.log2(20.60)
+MUSICAL_NOTES["F"] = math.log2(21.83)
+MUSICAL_NOTES["F#"] = math.log2(23.12)
+MUSICAL_NOTES["G"] = math.log2(24.50)
+MUSICAL_NOTES["G#"] = math.log2(25.96)
+MUSICAL_NOTES["A"] = math.log2(27.50)
+MUSICAL_NOTES["A#"] = math.log2(29.14)
+MUSICAL_NOTES["B"] = math.log2(30.87)
+MIDDLE = (
+    MUSICAL_NOTES["C"] + (
+        (MUSICAL_NOTES["B"] - MUSICAL_NOTES["C"]) / 2
+    )
+)
 
 
 def record(duration, sr=44100, device=None):
@@ -104,14 +109,9 @@ def frequency_to_note(freq):
     int
         The octave to which the musical note belongs.
     """
-    log_val = []
-    for key, val in MUSICAL_NOTES.items():
-        log_val.append(math.log2(freq/val))
-    octave = round(sum(log_val)/len(log_val))
-    log_val = list(
-        np.abs(
-            np.asarray(log_val) - octave
-        )
-    )
-    note = list(MUSICAL_NOTES.keys())[log_val.index(min(log_val))]
+    # Find octave
+    freq = math.log2(freq)
+    octave = round(freq - MIDDLE)
+    scores = [octave - (freq - f) for f in MUSICAL_NOTES.values()]
+    note = list(MUSICAL_NOTES.keys())[scores.index(min(scores))]
     return note, octave
