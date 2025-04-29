@@ -101,6 +101,8 @@ def frequency_to_note(freq):
     -------
     str
         The musical note that closest matched `freq`.
+    int
+        The octave to which the musical note belongs.
     """
     log_val = []
     for key, val in MUSICAL_NOTES.items():
