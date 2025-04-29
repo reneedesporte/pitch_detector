@@ -433,7 +433,7 @@ wheels = [
 ]
 
 [[package]]
-name = "pitch-detector"
+name = "pitch_detector"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

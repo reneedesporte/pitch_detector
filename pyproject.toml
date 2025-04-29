@@ -1,5 +1,5 @@
 [project]
-name = "pitch-detector"
+name = "pitch_detector"
 version = "0.1.0"
 description = "Program to detect musical notes in recorded audio."
 readme = "README.md"
