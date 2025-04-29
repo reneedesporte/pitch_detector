@@ -41,13 +41,13 @@ def signal(duration, frequencies, magnitudes=None, sample_rate=44100):
 
     return y
 
-def noisify(signal, snr=10):
+def noisify(s, snr=10):
     """
     Add noise to a signal.
     
     Parameters
     ----------
-    signal : ndarray
+    s : ndarray
         The signal which will be made noisy.
     snr : int, default=10
         The signal-to-noise ratio to achieve.
@@ -57,7 +57,14 @@ def noisify(signal, snr=10):
     ndarray
         The noisy signal.
     """
-    pass
+    noise = np.random.normal(0, 1, len(s))
+    noise -= noise.min()
+    noise /= noise.max()
+    noise -= 0.5
+    noise *= 2
+
+    noise /= snr
+    return s + noise
 
 def test_extract_pitch_440():
     """
@@ -66,6 +73,7 @@ def test_extract_pitch_440():
     """
     FREQUENCY = 440  # Hz
     SAMPLE_RATE = 44100  # Hz
+
     s = signal(1, [FREQUENCY], sample_rate=SAMPLE_RATE)
     pitches = utils.extract_pitch(s, SAMPLE_RATE)
     assert pitches[0] == FREQUENCY
@@ -82,3 +90,16 @@ def test_frequency_to_note_440():
     pitches = utils.extract_pitch(s, SAMPLE_RATE)
     note, octave = utils.frequency_to_note(pitches[0])
     assert note == "A" and octave == 4
+
+def test_extract_pitch_440_noisy():
+    """
+    Generate a noisy sine wave at 440 Hertz, which should be detected
+     by `utils.extract_pitch` as the most prominent frequency.
+    """
+    FREQUENCY = 440  # Hz
+    SAMPLE_RATE = 44100  # Hz
+
+    s = signal(1, [FREQUENCY], sample_rate=SAMPLE_RATE)
+    s = noisify(s, 2)
+    pitches = utils.extract_pitch(s, SAMPLE_RATE)
+    assert pitches[0] == FREQUENCY
