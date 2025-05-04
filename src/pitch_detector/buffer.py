@@ -66,7 +66,7 @@ class Buffer:
         octave : int, str
             The octave to which the musical note belongs.
         """
-        self.logger.write(f"Octave {octave}: {note}.", update_position=False)
+        self.logger.write(f"Octave {octave}: {note}  ", update_position=False)
     
     def put(self, array):
         """Insert `array` into `data`."""
