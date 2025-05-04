@@ -2,6 +2,7 @@
 
 import os
 import curses
+from datetime import datetime
 
 
 class Logger:
@@ -42,7 +43,7 @@ class Logger:
         )
         self.filename = os.path.join(savedir, "log.txt")
         with open(self.filename, "w", encoding="utf-8") as f:
-            f.write("Begin file.\n")  # TODO provide some other header
+            f.write(f"{datetime.now()}\n")
         
         self.stdscr = curses.initscr()
         curses.noecho()
