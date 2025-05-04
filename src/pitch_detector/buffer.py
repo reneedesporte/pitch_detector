@@ -57,7 +57,7 @@ class Buffer:
 
     def alert(self, note):
         """Alert user of processing result."""
-        self.logger.write(f"Note: {note}")
+        self.logger.write(f"Note: {note}", update_position=False)
     
     def put(self, array):
         """Insert `array` into `data`."""

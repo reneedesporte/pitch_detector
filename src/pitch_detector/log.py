@@ -22,6 +22,8 @@ class Logger:
         Window object, handling terminal output.
     lock : bool
         Boolean to control class behavior after `shutdown`.
+    y : int
+        Y-axis position on screen
     """
     def __init__(self, savedir=None):
         """
@@ -50,8 +52,9 @@ class Logger:
         self.stdscr.keypad(True)
 
         self.lock = False
+        self.y = 0
 
-    def write(self, line):
+    def write(self, line, update_position=True):
         """
         Write `line` to terminal and file.
 
@@ -59,6 +62,11 @@ class Logger:
         ----------
         line : str
             The line which will be written.
+        update_position : boolean, default=True
+            If True, the y-axis position of the outputted
+             text will be updated. 
+            Should be set to False when frequently / continuously
+             updating the same line.
 
         Returns
         -------
@@ -72,11 +80,14 @@ class Logger:
             f"`line` must be a string but is of type `{type(line)}`."
         )
 
-        self.stdscr.addstr(10, 10, line)   # TODO provide some other position (10, 10)
+        self.stdscr.addstr(self.y, 10, line)
         self.stdscr.refresh()
         curses.reset_shell_mode()
         with open(self.filename, "a", encoding="utf-8") as f:
             f.write(f"{line}\n")
+        
+        if update_position:
+            self.y += 1
 
     def shutdown(self):
         """Return the terminal window to normal on shutdown."""
