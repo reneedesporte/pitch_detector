@@ -55,9 +55,18 @@ class Buffer:
         )
         self.sample_rate = sample_rate
 
-    def alert(self, note):
-        """Alert user of processing result."""
-        self.logger.write(f"Note: {note}", update_position=False)
+    def alert(self, note, octave):
+        """
+        Alert user of processing result.
+
+        Parameters
+        ----------
+        note : str
+            The musical note.
+        octave : int, str
+            The octave to which the musical note belongs.
+        """
+        self.logger.write(f"Octave {octave}: {note}.", update_position=False)
     
     def put(self, array):
         """Insert `array` into `data`."""
@@ -89,7 +98,7 @@ class Buffer:
                 self.sample_rate
             )
             if len(pitches) == 0:
-                self.alert("--")
+                self.alert("--", "-")
                 continue
-            note, _ = utils.frequency_to_note(pitches[0])
-            self.alert(note)
+            note, octave = utils.frequency_to_note(pitches[0])
+            self.alert(note, octave)
