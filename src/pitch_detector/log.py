@@ -2,6 +2,7 @@
 
 import os
 import curses
+from collections import deque
 from datetime import datetime
 
 
@@ -24,6 +25,9 @@ class Logger:
         Boolean to control class behavior after `shutdown`.
     y : int
         Y-axis position on screen
+    notes : collections.deque
+        Small buffer for ever-accumulating musical notes,
+         to ensure logfile doesn't get too big.
     """
     def __init__(self, savedir=None):
         """
@@ -53,6 +57,7 @@ class Logger:
 
         self.lock = False
         self.y = 0
+        self.notes = deque(maxlen=1000)
 
     def write(self, line, update_position=True):
         """
@@ -83,11 +88,14 @@ class Logger:
         self.stdscr.addstr(self.y, 10, line)
         self.stdscr.refresh()
         curses.reset_shell_mode()
-        with open(self.filename, "a", encoding="utf-8") as f:
-            f.write(f"{line}\n")
-        
+
         if update_position:
             self.y += 1
+            with open(self.filename, "a", encoding="utf-8") as f:
+                f.write(f"{line}\n")
+            return
+
+        self.notes.append(f"{line}\n")
 
     def shutdown(self):
         """Return the terminal window to normal on shutdown."""
@@ -95,6 +103,10 @@ class Logger:
         self.stdscr.keypad(False)
         curses.echo()
         curses.endwin()
+
+        with open(self.filename, "a", encoding="utf-8") as f:
+            for note in self.notes:
+                f.write(note)
 
         print(f"Completed logging to `{self.filename}`")
         self.lock = True
