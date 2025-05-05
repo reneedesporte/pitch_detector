@@ -3,6 +3,8 @@ Program to detect any pitches from the [chromatic scale](https://en.wikipedia.or
 
 ## Dependencies
 This project was created and is maintained using [uv](https://docs.astral.sh/uv/), which I highly recommend.
+## Setup
+`uv venv` creates an environment and `uv pip install .` (run from this repo) will install `pitch_detector` into it.
 ## Runtime
 `uv run main.py` will run the program.
 ## Testing
