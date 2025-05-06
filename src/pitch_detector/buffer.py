@@ -72,7 +72,8 @@ class Buffer:
             data = np.asarray(self.data.copy())
             pitches = utils.extract_pitch(
                 data,
-                sr=self.sample_rate
+                sr=self.sample_rate,
+                threshold=2000
             )
             if len(pitches) == 0:
                 self.alert("--", "-")
