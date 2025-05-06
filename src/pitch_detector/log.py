@@ -99,6 +99,10 @@ class Logger:
 
     def shutdown(self):
         """Return the terminal window to normal on shutdown."""
+        if self.lock:
+            raise RuntimeError(
+                "`Logger` instance has already been `shutdown`."
+            )
         curses.nocbreak()
         self.stdscr.keypad(False)
         curses.echo()
