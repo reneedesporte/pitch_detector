@@ -38,9 +38,11 @@ if __name__ == "__main__":
     try:
         buffer.process()
     except KeyboardInterrupt:
-        log.write("Quitting at user request.")
+        log.write("Quitting at user request...")
+        time.sleep(0.5)
     except Exception as e:
         log.write(f"Exiting due to exception: {e}!")
+        time.sleep(0.5)
 
     stream.stop()
     log.shutdown()
