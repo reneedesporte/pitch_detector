@@ -92,7 +92,7 @@ def extract_pitch(data, sr=44100, threshold=50):
             )
         )
     )
-    return peaks[peaks > MUSICAL_NOTES["C"]]  # Remove frequencies that are below our
+    return peaks[peaks > MUSICAL_NOTES["C"]]
 
 def frequency_to_note(freq):
     """Convert a frequency `freq` from Hz to a musical note.
